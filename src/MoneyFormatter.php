@@ -33,7 +33,9 @@ class MoneyFormatter
     public function format($amount)
     {
         $formatter = new \NumberFormatter($this->locale, \NumberFormatter::CURRENCY);
-        return (string) $formatter->formatCurrency($amount / 100, $this->currency);
+        $string = (string) $formatter->formatCurrency($amount / 100, $this->currency);
+        
+        return preg_replace( '/[^[:print:]]/', '', $string);
     }
 
     /**
